@@ -3,60 +3,96 @@
 import { useEffect, useState } from "react";
 
 
-type Theme = "dark" | "light";
+type FetchState<T> = {
+  data: T | null;
+  loading: boolean;
+  error: string | null;
+};
 
 
-export default function useTheme() {
+export default function useFetch<T>(
+  url: string
+) {
 
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [state, setState] = useState<FetchState<T>>({
+    data: null,
+    loading: true,
+    error: null,
+  });
 
 
   useEffect(() => {
 
-    const savedTheme =
-      localStorage.getItem("theme") as Theme | null;
+    let cancelled = false;
 
 
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.toggle(
-        "dark",
-        savedTheme === "dark"
-      );
+    async function fetchData() {
+
+      try {
+
+        setState({
+          data: null,
+          loading: true,
+          error: null,
+        });
+
+
+        const response =
+          await fetch(url);
+
+
+        if (!response.ok) {
+          throw new Error(
+            "Failed to fetch data"
+          );
+        }
+
+
+        const result =
+          await response.json();
+
+
+        if (!cancelled) {
+
+          setState({
+            data: result,
+            loading: false,
+            error: null,
+          });
+
+        }
+
+
+      } catch (error) {
+
+        if (!cancelled) {
+
+          setState({
+            data: null,
+            loading: false,
+            error:
+              error instanceof Error
+                ? error.message
+                : "Unknown error",
+          });
+
+        }
+
+      }
+
     }
 
-  }, []);
+
+    fetchData();
 
 
-
-  function toggleTheme() {
-
-    const newTheme =
-      theme === "dark"
-        ? "light"
-        : "dark";
+    return () => {
+      cancelled = true;
+    };
 
 
-    setTheme(newTheme);
+  }, [url]);
 
 
-    localStorage.setItem(
-      "theme",
-      newTheme
-    );
-
-
-    document.documentElement.classList.toggle(
-      "dark",
-      newTheme === "dark"
-    );
-
-  }
-
-
-  return {
-    theme,
-    setTheme,
-    toggleTheme,
-  };
+  return state;
 }
