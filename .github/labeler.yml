@@ -1,0 +1,40 @@
+frontend:
+  - "apps/portfolio-web/**"
+  - "packages/ui/**"
+
+backend:
+  - "backend/**"
+  - "apps/api/**"
+
+documentation:
+  - "docs/**"
+  - "**/*.md"
+
+github:
+  - ".github/**"
+
+docker:
+  - "docker/**"
+  - "Dockerfile"
+  - "docker-compose.yml"
+
+tests:
+  - "tests/**"
+  - "**/*.test.*"
+  - "**/*.spec.*"
+
+database:
+  - "database/**"
+
+ai:
+  - "apps/ai-chat/**"
+  - "packages/ai-sdk/**"
+
+mobile:
+  - "apps/mobile/**"
+
+animations:
+  - "packages/animations/**"
+
+threejs:
+  - "packages/three/**"
