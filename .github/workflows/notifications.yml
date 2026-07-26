@@ -1,0 +1,59 @@
+name: Notifications
+
+on:
+  workflow_run:
+    workflows:
+      - "Build"
+      - "Deploy"
+      - "Tests"
+      - "Security Scan"
+    types:
+      - completed
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    name: Send Notifications
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Workflow Status Check
+        run: |
+          echo "Workflow: ${{ github.event.workflow_run.name }}"
+          echo "Status: ${{ github.event.workflow_run.conclusion }}"
+
+      - name: Discord Notification
+        if: always()
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MESSAGE: |
+            🚀 ResolveErrorStack CI/CD Update
+
+            Workflow:
+            ${{ github.event.workflow_run.name }}
+
+            Status:
+            ${{ github.event.workflow_run.conclusion }}
+
+            Repository:
+            ${{ github.repository }}
+
+      - name: Slack Notification
+        if: always()
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "text": "🚀 ResolveErrorStack Workflow: ${{ github.event.workflow_run.name }} completed with status: ${{ github.event.workflow_run.conclusion }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notification Summary
+        run: |
+          echo "📢 Notifications sent successfully."
