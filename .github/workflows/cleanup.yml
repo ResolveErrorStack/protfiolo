@@ -1,0 +1,29 @@
+name: Cleanup
+
+on:
+  schedule:
+    - cron: "0 2 * * 0" # Every Sunday 02:00 UTC
+
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cleanup:
+    name: Cleanup Old Actions Data
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cleanup Workflow Runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          retain_days: 30
+          keep_minimum_runs: 10
+
+      - name: Cleanup Summary
+        run: |
+          echo "🧹 Cleanup completed successfully."
+          echo "✔ Old workflow runs removed."
+          echo "✔ Repository storage optimized."
