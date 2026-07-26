@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: 💬 Community Discussion
+    url: https://github.com/ResolveErrorStack/RESOLVEERRORSTACK-PORTFOLIO/discussions
+    about: Ask questions and discuss ideas with the community.
+
+  - name: 🔒 Security Report
+    url: https://github.com/ResolveErrorStack/RESOLVEERRORSTACK-PORTFOLIO/security/advisories/new
+    about: Report security vulnerabilities privately.
+
+  - name: 📚 Documentation
+    url: https://github.com/ResolveErrorStack/RESOLVEERRORSTACK-PORTFOLIO/wiki
+    about: Check documentation and guides.
