@@ -2,69 +2,36 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
-    title: "ResolveErrorStack Platform",
+    title: "Resolve Error Stack",
     description:
-      "A futuristic developer ecosystem platform with AI assistant, projects showcase, and developer tools.",
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "AI",
-      "Tailwind CSS",
-    ],
-    github:
-      "https://github.com/ResolveErrorStack",
+      "Developer platform for learning coding, debugging errors, and sharing tech knowledge.",
+    tech: ["Next.js", "TypeScript", "Tailwind"]
   },
-
   {
-    title: "AI Developer Assistant",
+    title: "AI Developer Tools",
     description:
-      "An AI-powered assistant designed to help developers learn concepts and solve problems.",
-    technologies: [
-      "Python",
-      "AI",
-      "API",
-      "Machine Learning",
-    ],
+      "AI powered tools for developers to improve productivity.",
+    tech: ["AI", "Python", "Node.js"]
   },
-
   {
-    title: "Developer Portfolio",
+    title: "Portfolio Website",
     description:
-      "Modern animated portfolio website with responsive futuristic UI.",
-    technologies: [
-      "React",
-      "Next.js",
-      "Framer Motion",
-    ],
-  },
-
+      "Modern futuristic developer portfolio website.",
+    tech: ["React", "Next.js", "CSS"]
+  }
 ];
-
 
 export default function ProjectGrid() {
   return (
-    <div
-      className="
-        grid
-        md:grid-cols-2
-        lg:grid-cols-3
-        gap-8
-      "
-    >
-
+    <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {projects.map((project) => (
-
         <ProjectCard
           key={project.title}
           title={project.title}
           description={project.description}
-          technologies={project.technologies}
-          github={project.github}
-          demo={project.demo}
+          tech={project.tech}
         />
-
       ))}
-
-    </div>
+    </section>
   );
 }
