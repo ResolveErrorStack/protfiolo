@@ -1,0 +1,67 @@
+name: Package Check
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package-check:
+    name: Validate Packages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check Package Structure
+        run: |
+          echo "📦 Checking packages..."
+
+          for dir in packages/*; do
+            if [ -f "$dir/package.json" ]; then
+              echo "✔ Found package: $dir"
+            fi
+          done
+
+      - name: Validate Package JSON
+        run: |
+          pnpm exec publint --if-present
+
+      - name: Check Dependencies
+        run: |
+          pnpm audit --audit-level=high
+
+      - name: Build Packages
+        run: |
+          pnpm -r build
+
+      - name: Package Summary
+        run: |
+          echo "✅ Package validation completed."
+          echo "🚀 Packages are ready."
