@@ -1,0 +1,43 @@
+# ResolveErrorStack CODEOWNERS
+# Automatically request reviews from responsible maintainers
+
+# Default owner for entire repository
+* @ResolveErrorStack
+
+# Frontend
+/apps/portfolio-web/ @ResolveErrorStack/frontend-team
+
+# Backend API
+/apps/api/ @ResolveErrorStack/backend-team
+
+# AI Features
+/apps/ai-chat/ @ResolveErrorStack/ai-team
+
+# Mobile Application
+/apps/mobile/ @ResolveErrorStack/mobile-team
+
+# Shared UI Components
+/packages/ui/ @ResolveErrorStack/frontend-team
+
+# Database
+/database/ @ResolveErrorStack/backend-team
+
+# Documentation
+/docs/ @ResolveErrorStack/docs-team
+README.md @ResolveErrorStack/docs-team
+
+# GitHub Configuration
+/.github/ @ResolveErrorStack/devops-team
+
+# CI/CD Workflows
+/.github/workflows/ @ResolveErrorStack/devops-team
+
+# Security Related Files
+/security/ @ResolveErrorStack/security-team
+
+# Docker & Infrastructure
+/Dockerfile @ResolveErrorStack/devops-team
+/docker-compose.yml @ResolveErrorStack/devops-team
+
+# Environment Configuration
+.env.example @ResolveErrorStack/devops-team
