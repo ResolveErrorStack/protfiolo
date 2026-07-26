@@ -1,0 +1,55 @@
+# EditorConfig helps maintain consistent coding styles
+
+root = true
+
+
+[*]
+
+# Character encoding
+charset = utf-8
+
+
+# Line endings
+end_of_line = lf
+
+
+# Final newline
+insert_final_newline = true
+
+
+# Remove trailing spaces
+trim_trailing_whitespace = true
+
+
+
+# Default indentation
+indent_style = space
+indent_size = 2
+
+
+
+[*.md]
+
+# Markdown files
+trim_trailing_whitespace = false
+
+
+
+[*.{js,ts,tsx,jsx,json,css,scss}]
+
+indent_style = space
+indent_size = 2
+
+
+
+[*.yml]
+
+indent_style = space
+indent_size = 2
+
+
+
+[*.py]
+
+indent_style = space
+indent_size = 4
