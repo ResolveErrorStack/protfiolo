@@ -1,0 +1,40 @@
+name: Backup
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"   # Every Sunday at 00:00 UTC
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    name: Repository Backup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Backup Archive
+        run: |
+          mkdir backup
+          tar -czf backup/repository-backup.tar.gz \
+            --exclude=.git \
+            --exclude=node_modules \
+            --exclude=.next \
+            --exclude=dist \
+            .
+
+      - name: Upload Backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-backup
+          path: backup/repository-backup.tar.gz
+          retention-days: 30
+
+      - name: Backup Summary
+        run: |
+          echo "📦 Repository backup completed successfully."
