@@ -1,41 +1,64 @@
-export default function Loader() {
-  return (
-    <div
-      className="
-        flex
-        flex-col
-        items-center
-        justify-center
-        gap-4
-      "
-    >
+"use client";
 
-      {/* Spinner */}
-      <div
-        className="
-          w-16
-          h-16
-          rounded-full
-          border-4
-          border-cyan-400/30
-          border-t-cyan-400
-          animate-spin
-        "
-      />
+import { useState } from "react";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+};
 
 
-      {/* Text */}
-      <p
-        className="
-          text-cyan-400
-          text-sm
-          animate-pulse
-        "
-      >
-        Loading...
-      </p>
+export default function useAuth() {
+
+  const [user, setUser] = useState<User | null>(null);
+
+  const [loading, setLoading] = useState(false);
 
 
-    </div>
-  );
+  async function login(
+    email: string,
+    password: string
+  ) {
+
+    setLoading(true);
+
+    try {
+
+      // Future API integration
+      // POST /api/auth/login
+
+      const demoUser = {
+        id: "1",
+        name: "Developer",
+        email,
+      };
+
+
+      setUser(demoUser);
+
+      return demoUser;
+
+    } finally {
+
+      setLoading(false);
+
     }
+  }
+
+
+  function logout() {
+
+    setUser(null);
+
+  }
+
+
+  return {
+    user,
+    loading,
+    login,
+    logout,
+    isAuthenticated: !!user,
+  };
+      }
