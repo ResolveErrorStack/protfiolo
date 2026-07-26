@@ -1,63 +1,35 @@
 {
   "name": "resolve-error-stack-web",
-
   "version": "1.0.0",
-
   "private": true,
-
 
   "scripts": {
     "dev": "next dev",
-
     "build": "next build",
-
     "start": "next start",
-
     "lint": "next lint",
-
     "type-check": "tsc --noEmit"
   },
 
-
   "dependencies": {
-
     "next": "latest",
-
     "react": "latest",
-
     "react-dom": "latest",
-
     "lucide-react": "latest",
-
     "clsx": "latest",
-
     "tailwind-merge": "latest"
-
   },
 
-
   "devDependencies": {
-
     "typescript": "latest",
-
     "@types/node": "latest",
-
     "@types/react": "latest",
-
     "@types/react-dom": "latest",
-
     "tailwindcss": "latest",
-
     "@tailwindcss/postcss": "latest",
-
     "postcss": "latest",
-
     "autoprefixer": "latest",
-
     "eslint": "latest",
-
     "eslint-config-next": "latest"
-
   }
-
 }
