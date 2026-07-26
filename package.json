@@ -1,34 +1,19 @@
 {
   "name": "resolve-error-stack",
-
   "version": "1.0.0",
-
   "private": true,
 
-  "packageManager": "pnpm@9.0.0",
-
+  "packageManager": "npm@10.8.2",
 
   "scripts": {
-
-    "dev": "turbo dev",
-
-    "build": "turbo run build",
-
-    "lint": "turbo lint",
-
-    "type-check": "turbo type-check",
-
-    "clean": "turbo clean"
-
+    "dev": "cd apps/web && npm run dev",
+    "build": "cd apps/web && npm run build",
+    "start": "cd apps/web && npm run start",
+    "lint": "cd apps/web && npm run lint",
+    "type-check": "cd apps/web && npm run type-check"
   },
 
-
   "devDependencies": {
-
-    "turbo": "latest",
-
-    "typescript": "latest"
-
+    "typescript": "^7.0.2"
   }
-
 }
