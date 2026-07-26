@@ -1,0 +1,74 @@
+name: Performance
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  performance:
+    name: Performance Check
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Project
+        run: |
+          START=$(date +%s)
+          pnpm build
+          END=$(date +%s)
+          echo "Build Time: $((END-START)) seconds"
+
+      - name: Analyze Bundle Size
+        run: |
+          echo "Checking build output..."
+          du -sh .next 2>/dev/null || true
+          du -sh dist 2>/dev/null || true
+          du -sh out 2>/dev/null || true
+
+      - name: Upload Build Statistics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-report
+          path: |
+            .next
+            dist
+            out
+          if-no-files-found: ignore
+
+      - name: Performance Summary
+        run: |
+          echo "⚡ Performance check completed."
+          echo "✔ Build successful."
+          echo "✔ Bundle size analyzed."
